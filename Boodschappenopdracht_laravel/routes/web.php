@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\GroceriesController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::redirect('/', '/groceries');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/groceries', [GroceriesController::class, 'index'])->name('groceries.index');
+Route::get('/groceries/create', [GroceriesController::class, 'create'])->name('groceries.create');
+Route::post('/groceries', [GroceriesController::class, 'store'])->name('groceries.store');
+Route::get('/groceries/{grocery}/edit', [GroceriesController::class, 'edit'])->name('groceries.edit');
+Route::patch('/groceries/{grocery}', [GroceriesController::class, 'update'])->name('groceries.update');
+Route::delete('/groceries/{grocery}', [GroceriesController::class, 'destroy'])->name('groceries.destroy');
+
